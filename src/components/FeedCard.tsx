@@ -29,7 +29,7 @@ export default function FeedCard({ item }: { item: FeedItem }) {
             <h2 className="text-base font-semibold text-zinc-900 dark:text-zinc-50">
               {title}
             </h2>
-            {item.kind === "policy" && <DdayBadge applyEnd={item.applyEnd} />}
+            <DdayBadge applyEnd={item.applyEnd} />
           </div>
           <p className="mt-1 text-sm text-zinc-600 dark:text-zinc-400">{item.summary}</p>
         </div>

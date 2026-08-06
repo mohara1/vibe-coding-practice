@@ -44,6 +44,8 @@ export type Space = {
   lng: number;
   /** 실제 사진 경로. 없으면(null) 카테고리 아이콘 플레이스홀더로 표시 */
   photoUrl: string | null;
+  /** 홈 화면 카드에 D-day 뱃지를 표시하기 위한 임의 날짜(YYYY-MM-DD). 공간은 실제 마감 개념이 없어 의미 없는 값 */
+  applyEnd: string | null;
   reviews: Review[];
   detail: FiveW1H;
 };

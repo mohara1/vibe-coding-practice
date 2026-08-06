@@ -12,6 +12,7 @@ export const spaces: Space[] = [
     lat: 35.1800,
     lng: 128.0860,
     photoUrl: null,
+    applyEnd: null,
     reviews: [
       { author: "익명", content: "상담이 친절했어요." },
       { author: "익명", content: "쉬면서 정책 안내도 받을 수 있어 좋았어요." },
@@ -36,6 +37,7 @@ export const spaces: Space[] = [
     lat: 35.1825,
     lng: 128.0901,
     photoUrl: null,
+    applyEnd: "2026-08-10",
     reviews: [
       { author: "익명", content: "스터디 모임 하기 좋아요." },
       { author: "익명", content: "공간이 아늑해서 자주 방문해요." },
@@ -60,6 +62,7 @@ export const spaces: Space[] = [
     lat: 35.1774,
     lng: 128.0838,
     photoUrl: null,
+    applyEnd: "2026-08-09",
     reviews: [{ author: "익명", content: "이력서 첨삭이 도움이 많이 됐어요." }],
     detail: {
       who: "구직 중인 진주 청년",
@@ -81,6 +84,7 @@ export const spaces: Space[] = [
     lat: 35.1889,
     lng: 128.0925,
     photoUrl: null,
+    applyEnd: null,
     reviews: [{ author: "익명", content: "자리도 넉넉하고 조용해요." }],
     detail: {
       who: "조용히 공부하거나 책을 읽으려는 청년",
@@ -102,6 +106,7 @@ export const spaces: Space[] = [
     lat: 35.1756,
     lng: 128.0792,
     photoUrl: null,
+    applyEnd: "2026-08-20",
     reviews: [{ author: "익명", content: "주거 정책이 헷갈렸는데 정리해주셨어요." }],
     detail: {
       who: "주거 정책이 헷갈리는 진주 청년",
@@ -123,6 +128,7 @@ export const spaces: Space[] = [
     lat: 35.1842,
     lng: 128.1002,
     photoUrl: null,
+    applyEnd: "2026-08-07",
     reviews: [{ author: "익명", content: "공연 보기 전에 잠깐 쉬기 좋아요." }],
     detail: {
       who: "공연을 보러 오는 청년 관람객",
@@ -144,6 +150,7 @@ export const spaces: Space[] = [
     lat: 35.1711,
     lng: 128.0865,
     photoUrl: null,
+    applyEnd: "2026-09-01",
     reviews: [{ author: "익명", content: "멘토링 프로그램이 실질적으로 도움됐어요." }],
     detail: {
       who: "창업을 준비하는 예비 창업 청년",
@@ -165,6 +172,7 @@ export const spaces: Space[] = [
     lat: 35.1867,
     lng: 128.0784,
     photoUrl: null,
+    applyEnd: null,
     reviews: [{ author: "익명", content: "상담 선생님이 편하게 들어주셨어요." }],
     detail: {
       who: "정서적 어려움을 겪는 청년",
@@ -186,6 +194,7 @@ export const spaces: Space[] = [
     lat: 35.1795,
     lng: 128.0950,
     photoUrl: null,
+    applyEnd: "2026-08-13",
     reviews: [{ author: "익명", content: "진로 상담이 구체적이어서 좋았어요." }],
     detail: {
       who: "재학생과 졸업생",
@@ -207,6 +216,7 @@ export const spaces: Space[] = [
     lat: 35.1730,
     lng: 128.0820,
     photoUrl: null,
+    applyEnd: "2026-08-08",
     reviews: [{ author: "익명", content: "처음 만난 사람들과도 금방 친해졌어요." }],
     detail: {
       who: "함께 요리하고 나누고 싶은 청년",
@@ -228,6 +238,7 @@ export const spaces: Space[] = [
     lat: 35.1932,
     lng: 128.0847,
     photoUrl: null,
+    applyEnd: "2026-08-30",
     reviews: [{ author: "익명", content: "해설이 재밌어서 시간 가는 줄 몰랐어요." }],
     detail: {
       who: "지역 역사에 관심 있는 청년",
@@ -249,6 +260,7 @@ export const spaces: Space[] = [
     lat: 35.1680,
     lng: 128.0900,
     photoUrl: null,
+    applyEnd: null,
     reviews: [{ author: "익명", content: "입주 조건을 한눈에 정리해주셔서 편했어요." }],
     detail: {
       who: "임대주택 입주를 고민하는 청년",
@@ -270,6 +282,7 @@ export const spaces: Space[] = [
     lat: 35.1620,
     lng: 128.1050,
     photoUrl: null,
+    applyEnd: "2026-08-11",
     reviews: [{ author: "익명", content: "네트워킹 행사가 자주 열려서 좋아요." }],
     detail: {
       who: "IT·콘텐츠 분야 예비 창업자",
@@ -291,6 +304,7 @@ export const spaces: Space[] = [
     lat: 35.1900,
     lng: 128.0700,
     photoUrl: null,
+    applyEnd: "2026-08-06",
     reviews: [{ author: "익명", content: "직접 전시를 열어볼 수 있어서 특별했어요." }],
     detail: {
       who: "전시·공연을 열어보고 싶은 청년 창작자",

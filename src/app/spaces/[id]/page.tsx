@@ -25,12 +25,7 @@ export default async function SpaceDetailPage({
         </Link>
 
         <div className="mt-4">
-          <CardPhoto
-            photoUrl={space.photoUrl}
-            category={space.category}
-            name={space.name}
-            size="large"
-          />
+          <MockMap spaces={spaces} highlightId={space.id} />
 
           <div className="mt-4">
             <CategoryBadge category={space.category} />
@@ -43,7 +38,12 @@ export default async function SpaceDetailPage({
           </div>
 
           <div className="mt-6">
-            <MockMap spaces={spaces} highlightId={space.id} />
+            <CardPhoto
+              photoUrl={space.photoUrl}
+              category={space.category}
+              name={space.name}
+              size="large"
+            />
           </div>
 
           <h2 className="mt-8 text-sm font-semibold text-zinc-900 dark:text-zinc-50">
