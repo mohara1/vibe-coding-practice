@@ -14,7 +14,7 @@ const placeholderIcon: Record<Category, string> = {
   커뮤니티: "🤝",
 };
 
-export default function SpacePhoto({
+export default function CardPhoto({
   photoUrl,
   category,
   name,

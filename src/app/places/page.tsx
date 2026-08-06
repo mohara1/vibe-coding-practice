@@ -6,7 +6,7 @@ import { spaces } from "@/data/spaces";
 import type { Category } from "@/lib/types";
 import CategoryBadge from "@/components/CategoryBadge";
 import MockMap from "@/components/MockMap";
-import SpacePhoto from "@/components/SpacePhoto";
+import CardPhoto from "@/components/CardPhoto";
 
 const CATEGORIES: Category[] = ["주거", "일자리", "문화", "커뮤니티"];
 
@@ -66,7 +66,7 @@ export default function PlacesPage() {
                 className="flex items-center gap-3 rounded-lg border border-zinc-200 bg-white p-3 text-sm hover:shadow-sm dark:border-zinc-800 dark:bg-zinc-900"
               >
                 <div className="w-12 shrink-0">
-                  <SpacePhoto
+                  <CardPhoto
                     photoUrl={space.photoUrl}
                     category={space.category}
                     name={space.name}

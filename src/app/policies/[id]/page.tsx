@@ -2,6 +2,8 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import { getPolicyById } from "@/lib/feed";
 import CategoryBadge from "@/components/CategoryBadge";
+import DdayBadge from "@/components/DdayBadge";
+import FiveW1HBlock from "@/components/FiveW1HBlock";
 
 export default async function PolicyDetailPage({
   params,
@@ -22,10 +24,15 @@ export default async function PolicyDetailPage({
 
         <div className="mt-4">
           <CategoryBadge category={policy.category} />
-          <h1 className="mt-2 text-2xl font-bold text-zinc-900 dark:text-zinc-50">
-            {policy.title}
-          </h1>
+          <div className="mt-2 flex items-center gap-2">
+            <h1 className="text-2xl font-bold text-zinc-900 dark:text-zinc-50">
+              {policy.title}
+            </h1>
+            <DdayBadge applyEnd={policy.applyEnd} />
+          </div>
           <p className="mt-2 text-zinc-600 dark:text-zinc-400">{policy.description}</p>
+
+          <FiveW1HBlock detail={policy.detail} />
 
           <a
             href={policy.applyUrl}

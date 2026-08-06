@@ -4,7 +4,8 @@ import { getSpaceById } from "@/lib/feed";
 import { spaces } from "@/data/spaces";
 import CategoryBadge from "@/components/CategoryBadge";
 import MockMap from "@/components/MockMap";
-import SpacePhoto from "@/components/SpacePhoto";
+import CardPhoto from "@/components/CardPhoto";
+import FiveW1HBlock from "@/components/FiveW1HBlock";
 
 export default async function SpaceDetailPage({
   params,
@@ -24,7 +25,7 @@ export default async function SpaceDetailPage({
         </Link>
 
         <div className="mt-4">
-          <SpacePhoto
+          <CardPhoto
             photoUrl={space.photoUrl}
             category={space.category}
             name={space.name}
@@ -37,6 +38,8 @@ export default async function SpaceDetailPage({
               {space.name}
             </h1>
             <p className="mt-2 text-zinc-600 dark:text-zinc-400">{space.description}</p>
+
+            <FiveW1HBlock detail={space.detail} />
           </div>
 
           <div className="mt-6">
