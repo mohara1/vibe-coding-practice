@@ -1,6 +1,8 @@
 "use client";
 
+import { useRouter } from "next/navigation";
 import { useFavorites } from "@/lib/useFavorites";
+import { useMockAuth } from "@/lib/useMockAuth";
 
 export default function FavoriteButton({
   kind,
@@ -11,6 +13,8 @@ export default function FavoriteButton({
   id: number;
   className?: string;
 }) {
+  const router = useRouter();
+  const { auth } = useMockAuth();
   const { isFavorite, toggleFavorite } = useFavorites();
   const active = isFavorite(kind, id);
 
@@ -20,6 +24,11 @@ export default function FavoriteButton({
       onClick={(e) => {
         e.preventDefault();
         e.stopPropagation();
+
+        if (!auth.loggedIn) {
+          router.push("/my");
+          return;
+        }
         toggleFavorite(kind, id);
       }}
       aria-label={active ? "찜 해제" : "찜하기"}

@@ -5,8 +5,6 @@ import { useMockAuth } from "@/lib/useMockAuth";
 export default function LoginButton() {
   const { auth, login, logout } = useMockAuth();
 
-  if (!auth) return null;
-
   if (auth.loggedIn) {
     return (
       <button

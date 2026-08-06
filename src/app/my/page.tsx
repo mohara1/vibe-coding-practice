@@ -42,8 +42,6 @@ export default function MyPage() {
     router.push("/");
   };
 
-  if (!auth) return null;
-
   return (
     <div className="flex flex-1 justify-center bg-zinc-50 dark:bg-black">
       <main className="w-full max-w-3xl px-4 py-8 sm:px-8">
