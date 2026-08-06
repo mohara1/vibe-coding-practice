@@ -4,6 +4,7 @@ import { getPolicyById } from "@/lib/feed";
 import CategoryBadge from "@/components/CategoryBadge";
 import DdayBadge from "@/components/DdayBadge";
 import FiveW1HBlock from "@/components/FiveW1HBlock";
+import FavoriteButton from "@/components/FavoriteButton";
 
 export default async function PolicyDetailPage({
   params,
@@ -23,7 +24,10 @@ export default async function PolicyDetailPage({
         </Link>
 
         <div className="mt-4">
-          <CategoryBadge category={policy.category} />
+          <div className="flex items-start justify-between gap-2">
+            <CategoryBadge category={policy.category} />
+            <FavoriteButton kind="policy" id={policy.id} />
+          </div>
           <div className="mt-2 flex items-center gap-2">
             <h1 className="text-2xl font-bold text-zinc-900 dark:text-zinc-50">
               {policy.title}

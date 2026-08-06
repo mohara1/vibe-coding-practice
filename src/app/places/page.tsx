@@ -7,6 +7,7 @@ import type { Category } from "@/lib/types";
 import CategoryBadge from "@/components/CategoryBadge";
 import MockMap from "@/components/MockMap";
 import CardPhoto from "@/components/CardPhoto";
+import FavoriteButton from "@/components/FavoriteButton";
 
 const CATEGORIES: Category[] = ["주거", "일자리", "문화", "커뮤니티"];
 
@@ -78,6 +79,7 @@ export default function PlacesPage() {
                     {space.name}
                   </span>
                 </span>
+                <FavoriteButton kind="space" id={space.id} />
                 <span className="text-zinc-400">›</span>
               </Link>
             </li>

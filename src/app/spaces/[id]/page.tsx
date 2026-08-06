@@ -6,6 +6,7 @@ import CategoryBadge from "@/components/CategoryBadge";
 import MockMap from "@/components/MockMap";
 import CardPhoto from "@/components/CardPhoto";
 import FiveW1HBlock from "@/components/FiveW1HBlock";
+import FavoriteButton from "@/components/FavoriteButton";
 
 export default async function SpaceDetailPage({
   params,
@@ -28,7 +29,10 @@ export default async function SpaceDetailPage({
           <MockMap spaces={spaces} highlightId={space.id} />
 
           <div className="mt-4">
-            <CategoryBadge category={space.category} />
+            <div className="flex items-start justify-between gap-2">
+              <CategoryBadge category={space.category} />
+              <FavoriteButton kind="space" id={space.id} />
+            </div>
             <h1 className="mt-2 text-2xl font-bold text-zinc-900 dark:text-zinc-50">
               {space.name}
             </h1>

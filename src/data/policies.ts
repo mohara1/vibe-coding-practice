@@ -33,7 +33,7 @@ export const policies: Policy[] = [
     description:
       "미취업 청년의 구직 활동을 돕기 위해 면접비, 교통비 등 구직 관련 비용을 지원합니다.",
     applyUrl: APPLY_URL,
-    targetStatus: ["대학생"],
+    targetStatus: ["구직중"],
     photoUrl: null,
     applyEnd: "2026-08-11",
     detail: {
@@ -138,7 +138,7 @@ export const policies: Policy[] = [
     description:
       "취업에 필요한 자격증 취득을 준비하는 청년에게 응시료와 교재비 일부를 지원합니다.",
     applyUrl: APPLY_URL,
-    targetStatus: ["대학생"],
+    targetStatus: ["대학생", "구직중"],
     photoUrl: null,
     applyEnd: "2026-08-20",
     detail: {
@@ -180,7 +180,7 @@ export const policies: Policy[] = [
     description:
       "취업 준비 중인 청년의 어학시험 응시료 부담을 줄이기 위해 연 2회까지 응시료를 지원합니다.",
     applyUrl: APPLY_URL,
-    targetStatus: ["대학생"],
+    targetStatus: ["대학생", "구직중"],
     photoUrl: null,
     applyEnd: "2026-08-07",
     detail: {
@@ -264,7 +264,7 @@ export const policies: Policy[] = [
     description:
       "취업 준비 중인 청년을 위한 직무 교육 과정과 지역 기업 현장 실습을 연계해 제공합니다.",
     applyUrl: APPLY_URL,
-    targetStatus: ["대학생"],
+    targetStatus: ["대학생", "구직중"],
     photoUrl: null,
     applyEnd: "2026-08-14",
     detail: {

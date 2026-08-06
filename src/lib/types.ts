@@ -1,5 +1,6 @@
 export type Category = "주거" | "일자리" | "문화" | "커뮤니티";
-export type Status = "대학생" | "직장인";
+export type Status = "대학생" | "직장인" | "구직중";
+export type AgeBracket = "19-24" | "25-29" | "30-34";
 
 /** 6하원칙 상세 정보 */
 export type FiveW1H = {
