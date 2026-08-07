@@ -2,6 +2,7 @@
 
 import Link from "next/link";
 import type { Participation } from "@/lib/types";
+import Button from "@/components/ui/Button";
 import { useMockAuth } from "@/lib/useMockAuth";
 import { useParticipations } from "@/lib/useParticipations";
 
@@ -9,8 +10,10 @@ export default function JoinPostCard({ post }: { post: Participation }) {
   const { auth } = useMockAuth();
   const { deletePost } = useParticipations();
   const isAuthor = auth.loggedIn && post.authorNickname === auth.nickname;
+  const full = post.participants.length >= post.capacity;
 
   const handleDelete = (e: React.MouseEvent) => {
+    // 카드 전체가 링크라서 상세로 넘어가지 않게 막는다.
     e.preventDefault();
     e.stopPropagation();
     if (window.confirm("이 글을 삭제할까요? 삭제하면 되돌릴 수 없어요.")) {
@@ -21,24 +24,31 @@ export default function JoinPostCard({ post }: { post: Participation }) {
   return (
     <Link
       href={`/join/${post.id}`}
-      className="relative block rounded-xl border border-zinc-200 bg-white p-4 transition-shadow hover:shadow-md dark:border-zinc-800 dark:bg-zinc-900"
+      className="relative block rounded-card border border-slate-200 bg-white p-4 shadow-card transition-shadow hover:shadow-card-hover"
     >
       {isAuthor && (
-        <button
-          type="button"
+        <Button
+          variant="danger"
+          size="sm"
           onClick={handleDelete}
           aria-label="글 삭제하기"
-          className="absolute right-3 top-3 rounded-md border border-zinc-300 px-2 py-1 text-xs font-medium text-zinc-500 transition-colors hover:border-red-300 hover:text-red-500 dark:border-zinc-700 dark:text-zinc-400 dark:hover:border-red-400 dark:hover:text-red-400"
+          className="absolute right-2 top-2"
         >
           삭제
-        </button>
+        </Button>
       )}
 
-      <h2 className="pr-14 text-base font-semibold text-zinc-900 dark:text-zinc-50">
+      <h2
+        className={`text-base font-semibold text-hamo-900 ${isAuthor ? "pr-16" : ""}`}
+      >
         {post.title}
       </h2>
-      <p className="mt-2 text-sm text-zinc-500">
-        {post.participants.length}/{post.capacity}
+
+      <p className="mt-2 text-[13px] text-slate-500">
+        <span className="font-mono font-semibold tabular-nums text-slate-600">
+          {post.participants.length}/{post.capacity}
+        </span>
+        명 {full ? "· 마감" : "참여 중"}
       </p>
     </Link>
   );

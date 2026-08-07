@@ -5,6 +5,11 @@ import type { Category, FeedItem } from "@/lib/types";
 import FeedCard from "@/components/FeedCard";
 import LoginButton from "@/components/LoginButton";
 import OnboardingOverlay from "@/components/OnboardingOverlay";
+import PageHeader from "@/components/PageHeader";
+import Chip from "@/components/ui/Chip";
+import EmptyState from "@/components/ui/EmptyState";
+import SearchInput from "@/components/ui/SearchInput";
+import Button from "@/components/ui/Button";
 import { useProfile } from "@/lib/useProfile";
 import { formatProfileSummary, REOPEN_ONBOARDING_KEY, type Profile } from "@/lib/profile";
 
@@ -56,6 +61,8 @@ export default function HomeFeed({ items }: { items: FeedItem[] }) {
     profile?.onboarded &&
     (profile.ageBracket !== null || profile.livesInJinju !== null || profile.status !== null);
 
+  const isFiltering = query.trim() !== "" || category !== "전체";
+
   return (
     <div>
       {showOnboarding && profile && (
@@ -72,31 +79,30 @@ export default function HomeFeed({ items }: { items: FeedItem[] }) {
         />
       )}
 
-      <div className="flex items-start justify-between gap-3">
-        <div>
-          <h1 className="text-2xl font-bold text-zinc-900 dark:text-zinc-50">잇다</h1>
-          <p className="mt-1 text-sm text-zinc-500">
-            진주 청년을 위한 정책과 커뮤니티 공간을 한 곳에서
-          </p>
-        </div>
-        <div className="flex shrink-0 flex-col items-end gap-1.5">
-          <LoginButton />
-          <input
-            value={query}
-            onChange={(e) => setQuery(e.target.value)}
-            placeholder="청년, 월세 등 검색"
-            className="w-32 rounded-full border border-zinc-200 bg-white px-3.5 py-1.5 text-sm outline-none focus:border-zinc-400 sm:w-44 dark:border-zinc-700 dark:bg-zinc-900"
-          />
-        </div>
-      </div>
+      <PageHeader
+        title="잇다"
+        description="진주 청년을 위한 정책과 커뮤니티 공간을 한 곳에서"
+        action={
+          <div className="flex flex-col items-end gap-2">
+            <LoginButton />
+            <SearchInput
+              value={query}
+              onChange={(e) => setQuery(e.target.value)}
+              placeholder="청년, 월세 등 검색"
+              aria-label="정책·공간 검색"
+              className="w-36 sm:w-48"
+            />
+          </div>
+        }
+      />
 
       {hasProfileInfo && (
-        <div className="mt-4 flex items-center justify-between gap-2 rounded-lg bg-zinc-100 px-3 py-2 text-xs text-zinc-600 dark:bg-zinc-800 dark:text-zinc-300">
+        <div className="mt-5 flex items-center justify-between gap-2 rounded-control bg-hamo-100 px-3.5 py-2.5 text-[13px] text-hamo-800">
           <span>{formatProfileSummary(profile!)} 기준으로 보는 중</span>
           <button
             type="button"
             onClick={() => setShowOnboarding(true)}
-            className="shrink-0 font-medium text-zinc-900 underline dark:text-zinc-50"
+            className="shrink-0 rounded font-medium text-hamo-700 underline transition-colors hover:text-hamo-900"
           >
             조건 바꾸기
           </button>
@@ -105,29 +111,36 @@ export default function HomeFeed({ items }: { items: FeedItem[] }) {
 
       <div className="mt-5 flex flex-wrap gap-2">
         {(["전체", ...CATEGORIES] as const).map((c) => (
-          <button
-            key={c}
-            onClick={() => setCategory(c)}
-            className={`rounded-full px-3.5 py-1.5 text-sm font-medium transition-colors ${
-              category === c
-                ? "bg-zinc-900 text-white dark:bg-zinc-50 dark:text-zinc-900"
-                : "bg-zinc-100 text-zinc-600 hover:bg-zinc-200 dark:bg-zinc-800 dark:text-zinc-300"
-            }`}
-          >
+          <Chip key={c} active={category === c} onClick={() => setCategory(c)}>
             {c}
-          </button>
+          </Chip>
         ))}
       </div>
 
-      <div className="mt-4 grid grid-cols-1 gap-3 sm:grid-cols-2">
-        {filtered.map((item) => (
-          <FeedCard key={`${item.kind}-${item.id}`} item={item} />
-        ))}
-      </div>
-
-      {filtered.length === 0 && (
-        <div className="mt-4 rounded-lg border border-dashed border-zinc-300 p-4 text-center text-sm text-zinc-500 dark:border-zinc-700">
-          검색 결과가 없어요
+      {filtered.length === 0 ? (
+        <EmptyState
+          className="mt-5"
+          message="이 조건에 맞는 게 아직 없어요"
+          action={
+            isFiltering ? (
+              <Button
+                variant="secondary"
+                size="sm"
+                onClick={() => {
+                  setQuery("");
+                  setCategory("전체");
+                }}
+              >
+                조건 지우기
+              </Button>
+            ) : undefined
+          }
+        />
+      ) : (
+        <div className="mt-5 grid grid-cols-1 gap-3 sm:grid-cols-2">
+          {filtered.map((item) => (
+            <FeedCard key={`${item.kind}-${item.id}`} item={item} />
+          ))}
         </div>
       )}
     </div>

@@ -1,10 +1,12 @@
 import type { Category } from "@/lib/types";
 
+// 카테고리 바탕색을 그대로 쓴다. 이모지는 아이콘이 아니라 사진 대신이라
+// SVG 로 바꾸지 않았다 (docs/requirements.md 4.9).
 const placeholderStyles: Record<Category, string> = {
-  주거: "bg-blue-50 text-blue-400 dark:bg-blue-950",
-  일자리: "bg-emerald-50 text-emerald-400 dark:bg-emerald-950",
-  문화: "bg-purple-50 text-purple-400 dark:bg-purple-950",
-  커뮤니티: "bg-orange-50 text-orange-400 dark:bg-orange-950",
+  주거: "bg-housing-soft",
+  일자리: "bg-job-soft",
+  문화: "bg-culture-soft",
+  커뮤니티: "bg-community-soft",
 };
 
 const placeholderIcon: Record<Category, string> = {
@@ -26,6 +28,7 @@ export default function CardPhoto({
   size?: "thumb" | "large";
 }) {
   const dimensionClass = size === "large" ? "aspect-[4/3]" : "aspect-square";
+  const radiusClass = size === "large" ? "rounded-card" : "rounded-control";
 
   if (photoUrl) {
     // eslint-disable-next-line @next/next/no-img-element
@@ -33,19 +36,21 @@ export default function CardPhoto({
       <img
         src={photoUrl}
         alt={name}
-        className={`${dimensionClass} w-full rounded-lg object-cover`}
+        className={`${dimensionClass} ${radiusClass} w-full object-cover`}
       />
     );
   }
 
   return (
     <div
-      className={`flex ${dimensionClass} w-full flex-col items-center justify-center gap-1 rounded-lg ${placeholderStyles[category]}`}
+      className={`flex ${dimensionClass} ${radiusClass} w-full flex-col items-center justify-center gap-1.5 ${placeholderStyles[category]}`}
     >
       <span className={size === "large" ? "text-4xl" : "text-2xl"}>
         {placeholderIcon[category]}
       </span>
-      {size === "large" && <span className="text-xs">사진 준비중</span>}
+      {size === "large" && (
+        <span className="text-[13px] text-slate-500">사진 준비중</span>
+      )}
     </div>
   );
 }
