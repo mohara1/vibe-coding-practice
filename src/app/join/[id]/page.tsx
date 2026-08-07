@@ -1,10 +1,13 @@
 "use client";
 
 import { use } from "react";
-import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useMockAuth } from "@/lib/useMockAuth";
 import { useParticipations } from "@/lib/useParticipations";
+import PageShell from "@/components/PageShell";
+import PageHeader from "@/components/PageHeader";
+import Button from "@/components/ui/Button";
+import EmptyState from "@/components/ui/EmptyState";
 
 export default function JoinDetailPage({
   params,
@@ -20,14 +23,13 @@ export default function JoinDetailPage({
 
   if (!post) {
     return (
-      <div className="flex flex-1 justify-center bg-zinc-50 dark:bg-black">
-        <main className="w-full max-w-3xl px-4 py-8 sm:px-8">
-          <Link href="/join" className="text-sm text-zinc-500 hover:text-zinc-700">
-            ← 참여탭으로
-          </Link>
-          <p className="mt-6 text-sm text-zinc-500">게시글을 찾을 수 없어요</p>
-        </main>
-      </div>
+      <PageShell>
+        <PageHeader backHref="/join" backLabel="참여탭으로" title="글을 찾을 수 없어요" />
+        <EmptyState
+          className="mt-5"
+          message="지워졌거나, 이 브라우저에 없는 글이에요. 모집 글은 기기마다 따로 저장돼요"
+        />
+      </PageShell>
     );
   }
 
@@ -51,68 +53,54 @@ export default function JoinDetailPage({
   };
 
   return (
-    <div className="flex flex-1 justify-center bg-zinc-50 dark:bg-black">
-      <main className="w-full max-w-3xl px-4 py-8 sm:px-8">
-        <Link href="/join" className="text-sm text-zinc-500 hover:text-zinc-700">
-          ← 참여탭으로
-        </Link>
+    <PageShell>
+      <PageHeader
+        backHref="/join"
+        backLabel="참여탭으로"
+        title={post.title}
+        description={post.authorNickname}
+      />
 
-        <div className="mt-4">
-          <h1 className="text-2xl font-bold text-zinc-900 dark:text-zinc-50">{post.title}</h1>
-          <p className="mt-1 text-sm text-zinc-500">{post.authorNickname}</p>
+      <p className="mt-5 whitespace-pre-wrap text-[15px] leading-relaxed text-slate-600">
+        {post.content}
+      </p>
 
-          <p className="mt-4 whitespace-pre-wrap text-zinc-600 dark:text-zinc-400">
-            {post.content}
-          </p>
+      <p className="mt-5 text-[13px] text-slate-500">
+        참여 인원{" "}
+        <span className="font-mono font-semibold tabular-nums text-slate-700">
+          {post.participants.length}/{post.capacity}
+        </span>
+      </p>
 
-          <p className="mt-4 text-sm font-medium text-zinc-700 dark:text-zinc-300">
-            참여 인원 {post.participants.length}/{post.capacity}
-          </p>
-
-          {joined ? (
-            <div className="mt-4 space-y-2">
-              <p className="text-sm text-zinc-500">이미 참여한 활동입니다</p>
-              {!isAuthor && (
-                <button
-                  type="button"
-                  onClick={handleJoinClick}
-                  className="rounded-full border border-zinc-300 px-5 py-2 text-sm font-medium text-zinc-700 dark:border-zinc-700 dark:text-zinc-300"
-                >
-                  참여 취소하기
-                </button>
-              )}
-            </div>
-          ) : full ? (
-            <button
-              type="button"
-              disabled
-              className="mt-4 rounded-full bg-zinc-200 px-5 py-2 text-sm font-medium text-zinc-500 dark:bg-zinc-800 dark:text-zinc-500"
-            >
-              마감
-            </button>
+      <div className="mt-4">
+        {joined ? (
+          isAuthor ? (
+            // 글쓴이는 자기 활동에서 빠질 수 없다
+            <p className="text-sm text-slate-500">내가 연 활동이에요</p>
           ) : (
-            <button
-              type="button"
-              onClick={handleJoinClick}
-              className="mt-4 rounded-full bg-zinc-900 px-5 py-2 text-sm font-medium text-white dark:bg-zinc-50 dark:text-zinc-900"
-            >
-              참여하기
-            </button>
-          )}
-
-          {isAuthor && (
-            <div className="mt-8 rounded-lg border border-zinc-200 p-4 dark:border-zinc-800">
-              <button
-                type="button"
-                onClick={handleDeleteClick}
-                className="text-sm font-medium text-red-500 hover:text-red-600 dark:text-red-400 dark:hover:text-red-300"
-              >
-                삭제하기
-              </button>
+            <div className="space-y-2">
+              <p className="text-sm text-slate-500">이미 참여한 활동이에요</p>
+              <Button variant="secondary" onClick={handleJoinClick}>
+                참여 취소하기
+              </Button>
             </div>
-          )}
+          )
+        ) : full ? (
+          <span className="inline-flex h-11 items-center rounded-full bg-slate-100 px-5 text-[15px] font-medium text-slate-500">
+            마감
+          </span>
+        ) : (
+          <Button onClick={handleJoinClick}>참여하기</Button>
+        )}
+      </div>
+
+      {isAuthor && (
+        <div className="mt-8 border-t border-slate-200 pt-4">
+          <Button variant="danger" size="sm" onClick={handleDeleteClick} className="-ml-4">
+            삭제하기
+          </Button>
         </div>
-      </main>
-    </div>
+      )}
+    </PageShell>
   );
 }

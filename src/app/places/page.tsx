@@ -8,6 +8,13 @@ import CategoryBadge from "@/components/CategoryBadge";
 import MockMap from "@/components/MockMap";
 import CardPhoto from "@/components/CardPhoto";
 import FavoriteButton from "@/components/FavoriteButton";
+import PageShell from "@/components/PageShell";
+import PageHeader from "@/components/PageHeader";
+import Chip from "@/components/ui/Chip";
+import EmptyState from "@/components/ui/EmptyState";
+import SearchInput from "@/components/ui/SearchInput";
+import Button from "@/components/ui/Button";
+import { ChevronRightIcon } from "@/components/icons";
 
 const CATEGORIES: Category[] = ["주거", "일자리", "문화", "커뮤니티"];
 
@@ -24,47 +31,61 @@ export default function PlacesPage() {
     });
   }, [query, category]);
 
+  const isFiltering = query.trim() !== "" || category !== "전체";
+
   return (
-    <div className="flex flex-1 justify-center bg-zinc-50 dark:bg-black">
-      <main className="w-full max-w-3xl px-4 py-8 sm:px-8">
-        <h1 className="text-2xl font-bold text-zinc-900 dark:text-zinc-50">공간</h1>
-        <p className="mt-1 text-sm text-zinc-500">
-          진주 청년 관련 기관을 지도에서 찾아보세요
-        </p>
+    <PageShell>
+      <PageHeader
+        title="공간"
+        description="진주 청년 관련 기관을 지도에서 찾아보세요"
+      />
 
-        <input
-          value={query}
-          onChange={(e) => setQuery(e.target.value)}
-          placeholder="기관 이름으로 검색"
-          className="mt-4 w-full rounded-full border border-zinc-200 bg-white px-4 py-2 text-sm outline-none focus:border-zinc-400 dark:border-zinc-700 dark:bg-zinc-900"
+      <SearchInput
+        value={query}
+        onChange={(e) => setQuery(e.target.value)}
+        placeholder="기관 이름으로 검색"
+        aria-label="기관 이름으로 검색"
+        className="mt-5"
+      />
+
+      <div className="mt-3 flex flex-wrap gap-2">
+        {(["전체", ...CATEGORIES] as const).map((c) => (
+          <Chip key={c} active={category === c} onClick={() => setCategory(c)}>
+            {c}
+          </Chip>
+        ))}
+      </div>
+
+      <div className="mt-4">
+        <MockMap spaces={filtered} />
+      </div>
+
+      {filtered.length === 0 ? (
+        <EmptyState
+          className="mt-4"
+          message="이 조건에 맞는 공간이 없어요"
+          action={
+            isFiltering ? (
+              <Button
+                variant="secondary"
+                size="sm"
+                onClick={() => {
+                  setQuery("");
+                  setCategory("전체");
+                }}
+              >
+                조건 지우기
+              </Button>
+            ) : undefined
+          }
         />
-
-        <div className="mt-3 flex flex-wrap gap-2">
-          {(["전체", ...CATEGORIES] as const).map((c) => (
-            <button
-              key={c}
-              onClick={() => setCategory(c)}
-              className={`rounded-full px-3.5 py-1.5 text-sm font-medium transition-colors ${
-                category === c
-                  ? "bg-zinc-900 text-white dark:bg-zinc-50 dark:text-zinc-900"
-                  : "bg-zinc-100 text-zinc-600 hover:bg-zinc-200 dark:bg-zinc-800 dark:text-zinc-300"
-              }`}
-            >
-              {c}
-            </button>
-          ))}
-        </div>
-
-        <div className="mt-4">
-          <MockMap spaces={filtered} />
-        </div>
-
+      ) : (
         <ul className="mt-4 space-y-2">
           {filtered.map((space) => (
             <li key={space.id}>
               <Link
                 href={`/spaces/${space.id}`}
-                className="flex items-center gap-3 rounded-lg border border-zinc-200 bg-white p-3 text-sm hover:shadow-sm dark:border-zinc-800 dark:bg-zinc-900"
+                className="flex items-center gap-3 rounded-control border border-slate-200 bg-white p-3 shadow-card transition-shadow hover:shadow-card-hover"
               >
                 <div className="w-12 shrink-0">
                   <CardPhoto
@@ -73,25 +94,19 @@ export default function PlacesPage() {
                     name={space.name}
                   />
                 </div>
-                <span className="flex flex-1 items-center gap-2">
+                <span className="flex min-w-0 flex-1 items-center gap-2">
                   <CategoryBadge category={space.category} />
-                  <span className="font-medium text-zinc-800 dark:text-zinc-200">
+                  <span className="truncate font-medium text-hamo-900">
                     {space.name}
                   </span>
                 </span>
                 <FavoriteButton kind="space" id={space.id} />
-                <span className="text-zinc-400">›</span>
+                <ChevronRightIcon className="h-4 w-4 shrink-0 text-slate-300" />
               </Link>
             </li>
           ))}
-
-          {filtered.length === 0 && (
-            <li className="rounded-lg border border-dashed border-zinc-300 p-4 text-center text-sm text-zinc-500 dark:border-zinc-700">
-              검색 결과가 없어요
-            </li>
-          )}
         </ul>
-      </main>
-    </div>
+      )}
+    </PageShell>
   );
 }

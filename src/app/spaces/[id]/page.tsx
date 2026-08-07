@@ -1,4 +1,3 @@
-import Link from "next/link";
 import { notFound } from "next/navigation";
 import { getSpaceById } from "@/lib/feed";
 import { spaces } from "@/data/spaces";
@@ -7,6 +6,9 @@ import MockMap from "@/components/MockMap";
 import CardPhoto from "@/components/CardPhoto";
 import FiveW1HBlock from "@/components/FiveW1HBlock";
 import FavoriteButton from "@/components/FavoriteButton";
+import PageShell from "@/components/PageShell";
+import PageHeader from "@/components/PageHeader";
+import SectionHeading from "@/components/ui/SectionHeading";
 
 export default async function SpaceDetailPage({
   params,
@@ -19,55 +21,56 @@ export default async function SpaceDetailPage({
   if (!space) notFound();
 
   return (
-    <div className="flex flex-1 justify-center bg-zinc-50 dark:bg-black">
-      <main className="w-full max-w-3xl px-4 py-8 sm:px-8">
-        <Link href="/" className="text-sm text-zinc-500 hover:text-zinc-700">
-          ← 정보탭으로
-        </Link>
+    <PageShell>
+      <PageHeader
+        backHref="/"
+        backLabel="정보탭으로"
+        title={space.name}
+        action={<FavoriteButton kind="space" id={space.id} />}
+      />
 
-        <div className="mt-4">
-          <MockMap spaces={spaces} highlightId={space.id} />
+      {/* 지도 → 6하원칙 → 사진 → 후기 순 (docs/requirements.md 공간 상세) */}
+      <div className="mt-4">
+        <MockMap spaces={spaces} highlightId={space.id} />
+      </div>
 
-          <div className="mt-4">
-            <div className="flex items-start justify-between gap-2">
-              <CategoryBadge category={space.category} />
-              <FavoriteButton kind="space" id={space.id} />
-            </div>
-            <h1 className="mt-2 text-2xl font-bold text-zinc-900 dark:text-zinc-50">
-              {space.name}
-            </h1>
-            <p className="mt-2 text-zinc-600 dark:text-zinc-400">{space.description}</p>
+      <div className="mt-4">
+        <CategoryBadge category={space.category} />
+      </div>
 
-            <FiveW1HBlock detail={space.detail} />
-          </div>
+      <p className="mt-3 text-[15px] leading-relaxed text-slate-600">
+        {space.description}
+      </p>
 
-          <div className="mt-6">
-            <CardPhoto
-              photoUrl={space.photoUrl}
-              category={space.category}
-              name={space.name}
-              size="large"
-            />
-          </div>
+      <FiveW1HBlock detail={space.detail} />
 
-          <h2 className="mt-8 text-sm font-semibold text-zinc-900 dark:text-zinc-50">
-            후기
-          </h2>
-          <ul className="mt-3 space-y-2">
-            {space.reviews.map((review, i) => (
-              <li
-                key={i}
-                className="rounded-lg border border-zinc-200 bg-white p-3 text-sm dark:border-zinc-800 dark:bg-zinc-900"
-              >
-                <span className="font-medium text-zinc-700 dark:text-zinc-300">
-                  {review.author}
-                </span>
-                <p className="mt-1 text-zinc-600 dark:text-zinc-400">{review.content}</p>
-              </li>
-            ))}
-          </ul>
-        </div>
-      </main>
-    </div>
+      <div className="mt-6">
+        <CardPhoto
+          photoUrl={space.photoUrl}
+          category={space.category}
+          name={space.name}
+          size="large"
+        />
+      </div>
+
+      <section className="mt-8">
+        <SectionHeading>후기</SectionHeading>
+        <ul className="mt-3 space-y-2">
+          {space.reviews.map((review, i) => (
+            <li
+              key={i}
+              className="rounded-control border border-slate-200 bg-white p-3.5"
+            >
+              <span className="text-[13px] font-medium text-slate-500">
+                {review.author}
+              </span>
+              <p className="mt-1 text-[15px] leading-relaxed text-slate-600">
+                {review.content}
+              </p>
+            </li>
+          ))}
+        </ul>
+      </section>
+    </PageShell>
   );
 }
