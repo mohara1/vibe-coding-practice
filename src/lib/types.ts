@@ -52,3 +52,16 @@ export type Space = {
 };
 
 export type FeedItem = Policy | Space;
+
+/** 진주 청년 활동 모집 게시글 (참여 탭) */
+export type Participation = {
+  id: number;
+  title: string;
+  authorNickname: string;
+  content: string;
+  /** 총 모집 인원. 2 이상 */
+  capacity: number;
+  /** 참여자 닉네임 목록. 작성자는 작성 시점에 자동 포함 */
+  participants: string[];
+  createdAt: string;
+};

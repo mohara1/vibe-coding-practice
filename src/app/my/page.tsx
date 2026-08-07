@@ -7,15 +7,23 @@ import { spaces } from "@/data/spaces";
 import { useMockAuth } from "@/lib/useMockAuth";
 import { useProfile } from "@/lib/useProfile";
 import { useFavorites } from "@/lib/useFavorites";
+import { useParticipations } from "@/lib/useParticipations";
 import { formatProfileSummary, REOPEN_ONBOARDING_KEY } from "@/lib/profile";
 import type { FeedItem } from "@/lib/types";
 import FeedCard from "@/components/FeedCard";
+import JoinPostCard from "@/components/JoinPostCard";
 
 export default function MyPage() {
   const router = useRouter();
   const { auth, login } = useMockAuth();
   const { profile } = useProfile();
   const { favorites } = useFavorites();
+  const { posts } = useParticipations();
+
+  const myPosts = useMemo(
+    () => posts.filter((post) => post.authorNickname === auth.nickname),
+    [posts, auth.nickname]
+  );
 
   const recommended = useMemo(() => {
     const status = profile?.status;
@@ -103,6 +111,21 @@ export default function MyPage() {
                 <div className="mt-2 grid grid-cols-1 gap-3 sm:grid-cols-2">
                   {favoriteItems.map((item) => (
                     <FeedCard key={`${item.kind}-${item.id}`} item={item} />
+                  ))}
+                </div>
+              )}
+            </section>
+
+            <section className="mt-6">
+              <h2 className="text-sm font-semibold text-zinc-900 dark:text-zinc-50">
+                내가 쓴 글
+              </h2>
+              {myPosts.length === 0 ? (
+                <p className="mt-2 text-sm text-zinc-500">아직 작성한 모집 글이 없어요</p>
+              ) : (
+                <div className="mt-2 grid grid-cols-1 gap-3 sm:grid-cols-2">
+                  {myPosts.map((post) => (
+                    <JoinPostCard key={post.id} post={post} />
                   ))}
                 </div>
               )}
