@@ -1,26 +1,78 @@
 @import "tailwindcss";
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
-}
+/*
+ * 화면 톤 토큰. 값의 근거와 역할은 docs/requirements.md 4절에 있다.
+ * 여기 값을 바꾸면 그 문서도 같이 고친다.
+ */
+@theme {
+  /* ── 하모 계단 ──
+   * 진주시 캐릭터 하모의 색. 기준값은 hamo-200 (#b0cffc).
+   * 기준값은 밝기 84%라 흰 배경 대비가 1.4:1뿐이어서 글자·버튼에 못 쓴다.
+   * 그래서 같은 색상각 216°에서 위아래로 계단을 만들어 역할을 나눴다. */
+  --color-hamo-50: #eff5fe;
+  --color-hamo-100: #dce9fd;
+  --color-hamo-200: #b0cffc;
+  --color-hamo-300: #8ab6fa;
+  --color-hamo-400: #5e97f5;
+  --color-hamo-500: #3b79ea;
+  --color-hamo-600: #2a60c8;
+  --color-hamo-700: #204c9e;
+  --color-hamo-800: #1b3d7a;
+  --color-hamo-900: #17325f;
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-}
+  /* ── 카테고리 4색 ──
+   * soft = 뱃지 바탕(밝기 ~92%), ink = 뱃지 글자(~35%), 기본 = 지도 점.
+   * 넷 다 같은 밝기 층에 놓아 한 시스템으로 읽히게 하고,
+   * 색상각을 216 → 187 → 262 → 342로 벌려 구분력을 지켰다. */
+  --color-housing: #3b79ea;
+  --color-housing-soft: #dce9fd;
+  --color-housing-ink: #1d4e9e;
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+  --color-job: #12928c;
+  --color-job-soft: #cfeae8;
+  --color-job-ink: #0e6b67;
+
+  --color-culture: #7b5fd1;
+  --color-culture-soft: #e5defb;
+  --color-culture-ink: #56409f;
+
+  --color-community: #d9557a;
+  --color-community-soft: #fbdce3;
+  --color-community-ink: #a63757;
+
+  /* ── 모서리 (3개만 쓴다: card / control / rounded-full) ── */
+  --radius-card: 16px;
+  --radius-control: 10px;
+
+  /* ── 그림자 (2개만) ──
+   * 회색이 아니라 hamo-900을 옅게 섞어 화면에 붙게 한다. */
+  --shadow-card: 0 1px 2px rgb(23 50 95 / 0.04), 0 1px 3px rgb(23 50 95 / 0.06);
+  --shadow-card-hover: 0 4px 12px rgb(23 50 95 / 0.1);
+
+  /* ── 글꼴 ── */
+  --font-sans: var(--font-plex-kr), "Apple SD Gothic Neo", "Malgun Gothic",
+    sans-serif;
+  --font-mono: var(--font-plex-mono), ui-monospace, monospace;
 }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  @apply bg-hamo-50 font-sans text-slate-600;
+}
+
+/* 어떤 요소든 키보드로 초점이 오면 표시가 보여야 한다.
+ * 개별 컴포넌트에서 outline-none으로 지우지 않는다. */
+:focus-visible {
+  @apply outline-2 outline-offset-2 outline-hamo-600;
+}
+
+/* 전환 효과를 줄여달라고 설정한 사용자에게는 끈다. */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
 }
