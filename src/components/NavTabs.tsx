@@ -40,7 +40,7 @@ export default function NavTabs() {
               className={`flex h-16 flex-1 flex-col items-center justify-center gap-1 text-[11px] font-medium transition-colors ${
                 active
                   ? "text-hamo-600"
-                  : "text-slate-400 hover:text-hamo-500"
+                  : "text-slate-500 hover:text-hamo-500"
               }`}
             >
               <Icon className="h-[22px] w-[22px]" />

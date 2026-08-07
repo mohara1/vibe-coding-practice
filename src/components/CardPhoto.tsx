@@ -49,7 +49,7 @@ export default function CardPhoto({
         {placeholderIcon[category]}
       </span>
       {size === "large" && (
-        <span className="text-[13px] text-slate-500">사진 준비중</span>
+        <span className="text-[13px] text-slate-600">사진 준비중</span>
       )}
     </div>
   );

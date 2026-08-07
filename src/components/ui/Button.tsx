@@ -16,7 +16,8 @@ const variants: Record<ButtonVariant, string> = {
   secondary:
     "border border-slate-300 bg-white text-slate-700 hover:border-slate-400 hover:bg-slate-50",
   ghost: "bg-hamo-100 text-hamo-700 hover:bg-hamo-200",
-  danger: "text-rose-600 hover:bg-rose-50",
+  // rose-700 인 이유: rose-600 은 하모-50 배경 위에서 4.29:1 로 기준에 못 미친다
+  danger: "text-rose-700 hover:bg-rose-50",
 };
 
 // md 는 44px 높이 — 모바일에서 손가락으로 누르는 크기 (4.7절, 0절)

@@ -26,7 +26,7 @@ export default function FeedCard({ item }: { item: FeedItem }) {
         <div className="min-w-0 flex-1 pr-8">
           <div className="flex items-center gap-2">
             <CategoryBadge category={item.category} />
-            <span className="text-[13px] text-slate-400">{kindLabel}</span>
+            <span className="text-[13px] text-slate-500">{kindLabel}</span>
           </div>
           <div className="mt-2 flex items-center gap-2">
             <h2 className="text-base font-semibold text-hamo-900">{title}</h2>

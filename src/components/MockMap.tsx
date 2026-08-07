@@ -31,7 +31,7 @@ export default function MockMap({
         className="absolute inset-0 h-full w-full object-cover"
       />
 
-      <span className="absolute left-2.5 top-2.5 z-10 rounded-full bg-white/85 px-2.5 py-1 text-[11px] font-medium text-slate-500">
+      <span className="absolute left-2.5 top-2.5 z-10 rounded-full bg-white/85 px-2.5 py-1 text-[11px] font-medium text-slate-600">
         진주시 (모의 지도)
       </span>
 

@@ -38,7 +38,7 @@ export default function FavoriteButton({
       className={`flex h-8 w-8 shrink-0 items-center justify-center rounded-full shadow-card transition-colors focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-hamo-600 ${
         active
           ? "bg-rose-500 text-white"
-          : "bg-white/90 text-slate-400 hover:text-rose-500"
+          : "bg-white/90 text-slate-500 hover:text-rose-500"
       } ${className}`}
     >
       <HeartIcon className="h-[17px] w-[17px]" filled={active} />

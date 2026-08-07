@@ -65,7 +65,7 @@ export default function JoinDetailPage({
         {post.content}
       </p>
 
-      <p className="mt-5 text-[13px] text-slate-500">
+      <p className="mt-5 text-[13px] text-slate-600">
         참여 인원{" "}
         <span className="font-mono font-semibold tabular-nums text-slate-700">
           {post.participants.length}/{post.capacity}
@@ -76,17 +76,17 @@ export default function JoinDetailPage({
         {joined ? (
           isAuthor ? (
             // 글쓴이는 자기 활동에서 빠질 수 없다
-            <p className="text-sm text-slate-500">내가 연 활동이에요</p>
+            <p className="text-sm text-slate-600">내가 연 활동이에요</p>
           ) : (
             <div className="space-y-2">
-              <p className="text-sm text-slate-500">이미 참여한 활동이에요</p>
+              <p className="text-sm text-slate-600">이미 참여한 활동이에요</p>
               <Button variant="secondary" onClick={handleJoinClick}>
                 참여 취소하기
               </Button>
             </div>
           )
         ) : full ? (
-          <span className="inline-flex h-11 items-center rounded-full bg-slate-100 px-5 text-[15px] font-medium text-slate-500">
+          <span className="inline-flex h-11 items-center rounded-full bg-slate-100 px-5 text-[15px] font-medium text-slate-600">
             마감
           </span>
         ) : (

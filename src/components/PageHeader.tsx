@@ -23,7 +23,7 @@ export default function PageHeader({
       {backHref && (
         <Link
           href={backHref}
-          className="-ml-1 inline-flex items-center gap-1 rounded-control px-1 py-1 text-sm text-slate-500 transition-colors hover:text-hamo-700"
+          className="-ml-1 inline-flex items-center gap-1 rounded-control px-1 py-1 text-sm text-slate-600 transition-colors hover:text-hamo-700"
         >
           <ArrowLeftIcon className="h-4 w-4" />
           {backLabel ?? "뒤로"}
@@ -38,7 +38,7 @@ export default function PageHeader({
             {title}
           </h1>
           {description && (
-            <p className="mt-1.5 text-sm leading-relaxed text-slate-500">
+            <p className="mt-1.5 text-sm leading-relaxed text-slate-600">
               {description}
             </p>
           )}
